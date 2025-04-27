@@ -1,32 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2i6m5qjdfndf"]
+[gd_scene load_steps=4 format=3 uid="uid://c2i6m5qjdfndf"]
 
 [ext_resource type="Script" uid="uid://b8faid766516t" path="res://scenes/levels/Level.cs" id="1_b2cq8"]
-[ext_resource type="Texture2D" uid="uid://d3fxi0ut2xb3r" path="res://graphics/objects/gate.png" id="2_b2cq8"]
+[ext_resource type="PackedScene" uid="uid://ccffqn6cfw3v8" path="res://scenes/objects/gate.tscn" id="2_b2cq8"]
 [ext_resource type="PackedScene" uid="uid://c00188qv8ae5p" path="res://scenes/player/Player.tscn" id="4_xb4v1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2cq8"]
-size = Vector2(860, 297)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_b2cq8")
 
-[node name="Gate" type="StaticBody2D" parent="."]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Gate"]
-polygon = PackedVector2Array(-926, -1336, -926, -1, -890, 106, -810, 184, -698, 218, 133, 220, 134, -42, 1004, -36, 1002, 223, 1877, 225, 1977, 168, 2030, 106, 2066, -3, 2071, -1325)
-
-[node name="Gate" type="Sprite2D" parent="Gate"]
-position = Vector2(510, -553)
-texture = ExtResource("2_b2cq8")
-
-[node name="Area2D" type="Area2D" parent="Gate"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Gate/Area2D"]
-position = Vector2(571, 170.5)
-shape = SubResource("RectangleShape2D_b2cq8")
+[node name="Gate" parent="." instance=ExtResource("2_b2cq8")]
+position = Vector2(516, -550)
 
 [node name="Player" parent="." instance=ExtResource("4_xb4v1")]
 position = Vector2(571, 426)
 
-[connection signal="body_entered" from="Gate/Area2D" to="." method="OnArea2DBodyEntered"]
-[connection signal="body_exited" from="Gate/Area2D" to="." method="OnArea2DBodyExited"]
+[node name="Projectiles" type="Node2D" parent="."]
+
+[connection signal="PlayerEnteredGate" from="Gate" to="." method="OnGatePlayerEnteredGate"]
+[connection signal="OnGrenade" from="Player" to="." method="OnPlayerOnGrenade"]
+[connection signal="OnLaser" from="Player" to="." method="OnPlayerOnLaser"]

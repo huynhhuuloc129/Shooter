@@ -23,5 +23,16 @@ wait_time = 2.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_gfjak")
 
+[node name="LaserStartPositions" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="LaserStartPositions"]
+position = Vector2(23, -129)
+
+[node name="Marker2D2" type="Marker2D" parent="LaserStartPositions"]
+position = Vector2(15, -127)
+
+[node name="Marker2D3" type="Marker2D" parent="LaserStartPositions"]
+position = Vector2(31, -127)
+
 [connection signal="timeout" from="TimerLaser" to="." method="OnTimerLaserTimeout"]
 [connection signal="timeout" from="TimerGrenade" to="." method="OnTimerGrenadeTimeout"]
