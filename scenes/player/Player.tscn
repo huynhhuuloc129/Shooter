@@ -11,7 +11,8 @@ height = 138.0
 script = ExtResource("1_gfjak")
 
 [node name="PlayerImage" type="Sprite2D" parent="."]
-position = Vector2(4, -35)
+position = Vector2(37, 1)
+rotation = 1.5708
 texture = ExtResource("1_wr5hl")
 
 [node name="TimerLaser" type="Timer" parent="."]
@@ -26,13 +27,13 @@ shape = SubResource("CapsuleShape2D_gfjak")
 [node name="LaserStartPositions" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="LaserStartPositions"]
-position = Vector2(23, -129)
+position = Vector2(131, 21)
 
 [node name="Marker2D2" type="Marker2D" parent="LaserStartPositions"]
-position = Vector2(15, -127)
+position = Vector2(128, 11)
 
 [node name="Marker2D3" type="Marker2D" parent="LaserStartPositions"]
-position = Vector2(31, -127)
+position = Vector2(127, 32)
 
 [connection signal="timeout" from="TimerLaser" to="." method="OnTimerLaserTimeout"]
 [connection signal="timeout" from="TimerGrenade" to="." method="OnTimerGrenadeTimeout"]

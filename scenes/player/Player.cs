@@ -1,6 +1,5 @@
 using Godot;
 using System;
-
 public partial class Player : CharacterBody2D
 {
 	public bool canLaser = true;
@@ -8,10 +7,10 @@ public partial class Player : CharacterBody2D
 	Timer timerLaser, timerGrenade;
 
 	[Signal]
-	public delegate void OnLaserEventHandler(Vector2 position);
+	public delegate void OnLaserEventHandler(Vector2 position, Vector2 direction);
 	
 	[Signal]
-	public delegate void OnGrenadeEventHandler();
+	public delegate void OnGrenadeEventHandler(Vector2 position, Vector2 direction);
 
 	public override void _Ready(){
 		timerLaser = GetNode<Timer>("TimerLaser");
@@ -22,6 +21,9 @@ public partial class Player : CharacterBody2D
 		var direction = Input.GetVector("left", "right", "up", "down");
 		Velocity = direction * 500;
 		MoveAndSlide();
+		
+//		rotate player
+		LookAt(GetGlobalMousePosition());
  
 //		Laser shooting input
 		if (Input.IsActionPressed("primary action") && canLaser) {
@@ -32,15 +34,20 @@ public partial class Player : CharacterBody2D
 			canLaser = false;
 
 //			emit the position we selected
-			EmitSignal(SignalName.OnLaser, selectedLaser.GlobalPosition);
+			var playerDirection = (GetGlobalMousePosition() - Position).Normalized();
+			EmitSignal(SignalName.OnLaser, selectedLaser.GlobalPosition, playerDirection);
 		}
 		
 //		Shoot grenade
 		if (Input.IsActionPressed("secondary action") && canGrenade) {
-			EmitSignal(SignalName.OnGrenade);
+			
+			var laserMarkers = GetNode<Node2D>("LaserStartPositions").GetChildren();
+			var selectedLaser = (Node2D)laserMarkers[GD.RandRange(0, laserMarkers.Count -1)];
 			timerGrenade.Start();
-			GD.Print("Shoot grenade");
 			canGrenade = false;
+			
+			var playerDirection = (GetGlobalMousePosition() - Position).Normalized();
+			EmitSignal(SignalName.OnGrenade, selectedLaser.GlobalPosition, playerDirection);
 		}
 	}
 	
