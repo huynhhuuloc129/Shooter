@@ -33,6 +33,8 @@ public partial class Player : CharacterBody2D
 			timerLaser.Start();
 			canLaser = false;
 
+			var gunSmoke = GetNode<GpuParticles2D>("GunSmoke");
+			gunSmoke.Restart();
 //			emit the position we selected
 			var playerDirection = (GetGlobalMousePosition() - Position).Normalized();
 			EmitSignal(SignalName.OnLaser, selectedLaser.GlobalPosition, playerDirection);
