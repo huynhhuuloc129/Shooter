@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c00188qv8ae5p"]
+[gd_scene load_steps=9 format=3 uid="uid://c00188qv8ae5p"]
 
 [ext_resource type="Script" uid="uid://ctktd0kas4k5r" path="res://scenes/player/Player.cs" id="1_gfjak"]
 [ext_resource type="Texture2D" uid="uid://dplswjy66old2" path="res://graphics/player/player.png" id="1_wr5hl"]
@@ -9,7 +9,7 @@ radius = 69.0
 height = 138.0
 
 [sub_resource type="Gradient" id="Gradient_524rm"]
-colors = PackedColorArray(0.0630383, 0.0630383, 0.0630383, 1, 0.776471, 0.776471, 0.776471, 0.607843)
+colors = PackedColorArray(0.506171, 0.666347, 0.978212, 1, 0.776471, 0.776471, 0.776471, 0.607843)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_tpg5x"]
 gradient = SubResource("Gradient_524rm")
@@ -21,6 +21,9 @@ initial_velocity_min = 32.14
 initial_velocity_max = 32.14
 gravity = Vector3(100, -80, 0)
 color_ramp = SubResource("GradientTexture1D_tpg5x")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4kuee"]
+polygon = PackedVector2Array(-45, -42, -55, -24, -60, -10, -50, 21, -40, 39, -24, 54, 7, 55, 30, 47, 53, 42, 74, 47, 90, 50, 104, 42, 114, 34, 133, 34, 137, 13, 126, 5, 101, -4, 91, -8, 77, -9, 62, -19, 48, -28, 39, -36, 33, -49, 26, -58, 11, -56, -8, -58, -28, -53, -36, -46)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 31
@@ -61,6 +64,9 @@ one_shot = true
 speed_scale = 2.5
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_c3xxp")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_4kuee")
 
 [connection signal="timeout" from="TimerLaser" to="." method="OnTimerLaserTimeout"]
 [connection signal="timeout" from="TimerGrenade" to="." method="OnTimerGrenadeTimeout"]
