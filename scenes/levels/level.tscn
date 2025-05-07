@@ -143,6 +143,8 @@ position_smoothing_enabled = true
 [node name="Projectiles" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
+[connection signal="PlayerEntered" from="Ground/House" to="." method="OnHousePlayerEntered"]
+[connection signal="PlayerExited" from="Ground/House" to="." method="OnHousePlayerExited"]
 [connection signal="PlayerEnteredGate" from="Gate" to="." method="OnGatePlayerEnteredGate"]
 [connection signal="OnGrenade" from="Player" to="." method="OnPlayerOnGrenade"]
 [connection signal="OnLaser" from="Player" to="." method="OnPlayerOnLaser"]

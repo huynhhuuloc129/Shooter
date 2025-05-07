@@ -25,4 +25,18 @@ public partial class Level : Node2D
 		laser.RotationDegrees = Mathf.RadToDeg(direction.Angle());
 		GetNode<Node2D>("Projectiles").AddChild(laser);
 	}
+	public void OnHousePlayerEntered(){
+		var tween = GetTree().CreateTween();
+		var camera = GetNode<Camera2D>("Player/Camera2D");
+		var vector = new Vector2(1, 1);
+		tween.TweenProperty(camera, "zoom", vector, 1);
+	}
+	
+	public void OnHousePlayerExited(){
+		var tween = GetTree().CreateTween();
+		var camera = GetNode<Camera2D>("Player/Camera2D");
+		var vector = new Vector2((floatddddd)0.6, (floatddddd)0.6);
+		tween.TweenProperty(camera, "zoom", vector, 1);
+	}
+	
 }
