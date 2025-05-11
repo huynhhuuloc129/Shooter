@@ -6,6 +6,10 @@ public partial class Player : CharacterBody2D
 	public bool canGrenade = true;
 	Timer timerLaser, timerGrenade;
 
+	[Export]
+	public int maxSpeed = 500;
+	public int speed;
+
 	[Signal]
 	public delegate void OnLaserEventHandler(Vector2 position, Vector2 direction);
 	
@@ -13,13 +17,14 @@ public partial class Player : CharacterBody2D
 	public delegate void OnGrenadeEventHandler(Vector2 position, Vector2 direction);
 
 	public override void _Ready(){
+		speed = maxSpeed;
 		timerLaser = GetNode<Timer>("TimerLaser");
 		timerGrenade = GetNode<Timer>("TimerGrenade");
 	}
 	
 	public override void _Process(double delta){
 		var direction = Input.GetVector("left", "right", "up", "down");
-		Velocity = direction * 500;
+		Velocity = direction * speed;
 		MoveAndSlide();
 		
 //		rotate player

@@ -3,6 +3,8 @@ using System;
 
 public partial class Drone : CharacterBody2D
 {
+	public bool isEnemey = true;
+	
 	 public override void _Ready()
 	{
 
@@ -15,5 +17,8 @@ public partial class Drone : CharacterBody2D
 		MoveAndSlide();
 	}
 	
+	public void Hit(){
+		GD.Print("Damage");
+	}
 
 }
